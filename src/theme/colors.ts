@@ -1,0 +1,43 @@
+export const colors = {
+  primary: '#002B77',
+  primaryLight: '#1E88E5',
+  secondary: '#FF6B35',
+  background: '#FFFFFF',
+  surface: '#F5F5F5',
+  text: {
+    primary: '#002B77',
+    secondary: '#757575',
+    white: '#FFFFFF',
+  },
+  success: '#4CAF50',
+  error: '#F44336',
+  warning: '#FF9800',
+  border: '#E0E0E0',
+  disabled: '#BDBDBD',
+  categoryColors: {
+    blue: '#2196F3',
+    green: '#4CAF50',
+    orange: '#FF9800',
+    teal: '#009688',
+    red: '#F44336',
+    purple: '#9C27B0',
+    pink: '#E91E63',
+    indigo: '#3F51B5',
+    cyan: '#00BCD4',
+    amber: '#FFC107',
+  },
+  zones: {
+    mainStage: '#2196F3',
+    lectory: '#4CAF50',
+    retreat: '#9C27B0',
+    cinema: '#F44336',
+    gastro: '#FF9800',
+    action: '#E91E63',
+    learn: '#3F51B5',
+    enjoy: '#00BCD4',
+    world: '#009688',
+    russia: '#FFC107',
+  },
+} as const;
+
+export type Colors = typeof colors;
