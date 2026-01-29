@@ -5,18 +5,13 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Animated, {
-  FadeInRight,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
 
 import { RootStackParamList, UserProfile } from '../types';
 import { colors } from '../theme/colors';
@@ -109,6 +104,8 @@ const MainMenuScreen: React.FC = () => {
     navigation.navigate('Profile');
   };
 
+  const bottomPadding = Platform.OS === 'web' ? 20 : insets.bottom;
+
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       {/* Header */}
@@ -133,40 +130,35 @@ const MainMenuScreen: React.FC = () => {
       {/* Menu Items */}
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingBottom: insets.bottom + 100 },
-        ]}
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {menuItems.map((item, index) => (
-          <Animated.View
+        {menuItems.map((item) => (
+          <TouchableOpacity
             key={item.id}
-            entering={FadeInRight.delay(index * 100).springify()}
+            style={styles.menuCard}
+            onPress={() => handleMenuPress(item.screen)}
+            activeOpacity={0.7}
           >
-            <TouchableOpacity
-              style={styles.menuCard}
-              onPress={() => handleMenuPress(item.screen)}
-              activeOpacity={0.7}
+            <View
+              style={[styles.iconContainer, { backgroundColor: item.color }]}
             >
-              <View
-                style={[styles.iconContainer, { backgroundColor: item.color }]}
-              >
-                <Ionicons name={item.icon} size={28} color={colors.text.white} />
-              </View>
-              <Text style={styles.menuTitle}>{item.title}</Text>
-              <Ionicons
-                name="chevron-forward"
-                size={24}
-                color={colors.text.secondary}
-              />
-            </TouchableOpacity>
-          </Animated.View>
+              <Ionicons name={item.icon} size={28} color={colors.text.white} />
+            </View>
+            <Text style={styles.menuTitle}>{item.title}</Text>
+            <Ionicons
+              name="chevron-forward"
+              size={24}
+              color={colors.text.secondary}
+            />
+          </TouchableOpacity>
         ))}
+        {/* Spacer for bottom bar */}
+        <View style={{ height: 80 }} />
       </ScrollView>
 
       {/* Bottom Tab Bar */}
-      <View style={[styles.bottomBar, { paddingBottom: insets.bottom }]}>
+      <View style={[styles.bottomBar, { paddingBottom: bottomPadding }]}>
         <TouchableOpacity
           style={styles.tabItem}
           onPress={() => navigation.navigate('Profile')}
@@ -245,6 +237,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: spacing.lg,
+    paddingBottom: spacing.xl,
   },
   menuCard: {
     flexDirection: 'row',
@@ -277,6 +270,10 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: colors.border,
     backgroundColor: colors.background,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   tabItem: {
     alignItems: 'center',
