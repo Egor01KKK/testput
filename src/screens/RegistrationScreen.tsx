@@ -8,7 +8,6 @@ import {
   Platform,
   Alert,
   TouchableOpacity,
-  Image,
   TextInput,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -130,10 +129,7 @@ const RegistrationScreen: React.FC = () => {
       >
         <ScrollView
           style={styles.flex}
-          contentContainerStyle={[
-            styles.scrollContent,
-            { paddingBottom: insets.bottom + spacing.lg },
-          ]}
+          contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -256,27 +252,20 @@ const RegistrationScreen: React.FC = () => {
               </Text>
             </TouchableOpacity>
           </View>
+        </ScrollView>
 
-          {/* Frog mascot */}
-          <View style={styles.frogContainer}>
-            <Image
-              source={require('../../assets/images/frog-register.png')}
-              style={styles.frogImage}
-              resizeMode="contain"
-            />
-          </View>
-
-          {/* Submit Button */}
+        {/* Submit Button - Fixed at bottom */}
+        <View style={[styles.buttonContainer, { paddingBottom: Platform.OS === 'web' ? 20 : insets.bottom + spacing.md }]}>
           <TouchableOpacity
             style={[styles.submitButton, !canSubmit && styles.submitButtonDisabled]}
             onPress={handleSubmit(onSubmit)}
             disabled={!canSubmit || isSubmitting}
           >
             <Text style={styles.submitButtonText}>
-              {authMethod === 'email' ? 'Отправить код на почту' : 'Отправить код на телефон'}
+              {isSubmitting ? 'Загрузка...' : (authMethod === 'email' ? 'Отправить код на почту' : 'Отправить код на телефон')}
             </Text>
           </TouchableOpacity>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </View>
   );
@@ -293,6 +282,12 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.lg,
+  },
+  buttonContainer: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.md,
+    backgroundColor: colors.background,
   },
   titleSection: {
     marginBottom: spacing.xl,
@@ -385,21 +380,12 @@ const styles = StyleSheet.create({
     color: colors.primary,
     flex: 1,
   },
-  frogContainer: {
-    alignItems: 'flex-end',
-    marginVertical: spacing.md,
-  },
-  frogImage: {
-    width: 179,
-    height: 179,
-  },
   submitButton: {
     backgroundColor: '#0068B2',
-    height: 65,
+    height: 56,
     borderRadius: 99,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: spacing.md,
   },
   submitButtonDisabled: {
     opacity: 0.4,
