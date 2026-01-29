@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -27,9 +27,21 @@ function AppContent() {
   );
 }
 
+const rootStyle = Platform.select({
+  web: {
+    flex: 1,
+    height: '100%',
+    maxHeight: '100dvh',
+    overflow: 'hidden',
+  } as any,
+  default: {
+    flex: 1,
+  },
+});
+
 export default function App() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={rootStyle}>
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
           <UserProvider>
