@@ -40,17 +40,31 @@ const menuItems: MenuItem[] = [
     color: colors.categoryColors.blue,
   },
   {
+    id: 'participants',
+    title: 'Участники',
+    icon: 'people-outline',
+    screen: 'Participants',
+    color: colors.categoryColors.indigo,
+  },
+  {
+    id: 'activities',
+    title: 'Активности',
+    icon: 'fitness-outline',
+    screen: 'Activities',
+    color: colors.categoryColors.green,
+  },
+  {
     id: 'program',
     title: 'Программа фестиваля',
     icon: 'calendar-outline',
     screen: 'Program',
-    color: colors.categoryColors.green,
+    color: colors.categoryColors.teal,
   },
   {
     id: 'offers',
-    title: 'Скидки и спецпредложения',
+    title: 'Скидки и предложения',
     icon: 'gift-outline',
-    screen: 'Offers',
+    screen: 'Promotions',
     color: colors.categoryColors.orange,
   },
   {
@@ -58,7 +72,7 @@ const menuItems: MenuItem[] = [
     title: 'Экскурсии БЧП',
     icon: 'walk-outline',
     screen: 'Excursions',
-    color: colors.categoryColors.teal,
+    color: colors.categoryColors.cyan,
   },
   {
     id: 'quest',

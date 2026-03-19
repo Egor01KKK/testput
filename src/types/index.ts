@@ -2,7 +2,7 @@
 export interface UserProfile {
   id?: string;
   name: string;
-  phone: string;
+  phone?: string;
   email?: string;
   fcmToken?: string;
   createdAt?: string;
@@ -135,7 +135,7 @@ export type RootStackParamList = {
   Welcome: undefined;
   Registration: undefined;
   Main: undefined;
-  Map: { standId?: string };
+  Map: { standId?: string; filters?: string[] };
   Program: undefined;
   ActivityDetail: { activityId: string };
   Offers: undefined;
@@ -151,6 +151,18 @@ export type RootStackParamList = {
   FavoriteStands: undefined;
   Suitcase: undefined;
   Feedback: undefined;
+  StandDetail: { standId: string };
+  Participants: undefined;
+  ParticipantDetail: { participantId: string };
+  Activities: undefined;
+  ActivityDetail2026: { activityId: string };
+  Promotions: undefined;
+  PromotionDetail: { promotionId: string };
+  TinderSwipe: undefined;
+  MyPicks: { accepted?: string[] };
+  PromotionClaim: { promotionId: string; promotionName: string };
+  MapSearch: undefined;
+  MapFilters: undefined;
 };
 
 export type BottomTabParamList = {
@@ -195,12 +207,131 @@ export const TOURISM_TYPES: Record<TourismType, string> = {
 
 // Festival dates
 export const FESTIVAL_DATES = [
-  '2025-06-10',
-  '2025-06-11',
-  '2025-06-12',
-  '2025-06-13',
-  '2025-06-14',
-  '2025-06-15',
+  '2026-06-10',
+  '2026-06-11',
+  '2026-06-12',
+  '2026-06-13',
+  '2026-06-14',
 ] as const;
 
 export type FestivalDate = typeof FESTIVAL_DATES[number];
+
+// 2026 API models
+
+export type IslandType = 'deystvuy' | 'otdykhay' | 'uznavay' | 'razvivay';
+
+export interface Zone2026 {
+  id: string;
+  name: string;
+  color: string;
+  island_type?: IslandType;
+  stand_count?: number;
+}
+
+export interface TourismTypeObj {
+  id: string;
+  name: string;
+}
+
+export interface ActivityArea {
+  id: string;
+  name: string;
+}
+
+export interface Country {
+  id: string;
+  name: string;
+}
+
+export interface Region {
+  id: string;
+  name: string;
+}
+
+export interface MacroTerritory {
+  id: string;
+  name: string;
+}
+
+export interface EventSlot {
+  id: string;
+  date: string;
+  time_start: string;
+  time_end: string;
+}
+
+export interface Participant2026 {
+  id: string;
+  name: string;
+  logo?: string;
+  title?: string;
+  is_partner: boolean;
+  highlight_level?: number;
+  role?: 'partner' | 'exponent' | 'subexponent';
+  country?: Country;
+  macro_territory?: MacroTerritory;
+  tourism_types?: TourismTypeObj[];
+  activity_areas?: ActivityArea[];
+  description?: string;
+  link?: string;
+  center_point?: Coordinates;
+}
+
+export interface StandListResource {
+  id: string;
+  name: string;
+  number?: string;
+  zone?: Zone2026;
+  participant?: Participant2026;
+  tourism_types?: TourismTypeObj[];
+  center_point?: Coordinates;
+}
+
+export interface StandDetailResource extends StandListResource {
+  description?: string;
+  promotions?: PromotionListResource[];
+  activities?: ActivityListResource[];
+}
+
+export interface PromotionListResource {
+  id: string;
+  name: string;
+  photo?: string;
+  discount_amount?: string;
+  discount_type?: string;
+  participant?: Participant2026;
+  tourism_type?: TourismTypeObj;
+  region?: Region;
+  country?: Country;
+  is_foreign?: boolean;
+  is_favorite?: boolean;
+  is_partner?: boolean;
+}
+
+export interface PromotionDetailResource extends PromotionListResource {
+  description?: string;
+  code?: string;
+  photos?: string[];
+  contacts?: string;
+  event_slots?: EventSlot[];
+}
+
+export interface ActivityListResource {
+  id: string;
+  name: string;
+  activity_type?: TourismTypeObj;
+  event_slots?: EventSlot[];
+  participant?: Participant2026;
+  is_favorite?: boolean;
+}
+
+export interface ActivityDetailResource extends ActivityListResource {
+  description?: string;
+  registration_link?: string;
+  center_point?: Coordinates;
+}
+
+export interface SwipeResult {
+  promotion_id: string;
+  action: 'accept' | 'skip';
+}

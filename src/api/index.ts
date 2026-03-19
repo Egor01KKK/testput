@@ -6,3 +6,8 @@ export { toursApi } from './tours';
 export { excursionsApi } from './excursions';
 export { faqApi } from './faq';
 export { feedbackApi } from './feedback';
+export { zonesApi } from './zones';
+export { promotionsApi } from './promotions';
+export { participantsApi } from './participants';
+export { activities2026Api } from './activities2026';
+export { stands2026Api } from './stands2026';

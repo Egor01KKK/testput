@@ -76,6 +76,7 @@ const ProfileScreen: React.FC = () => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editName, setEditName] = useState('');
   const [editEmail, setEditEmail] = useState('');
+  const [activitiesCount, setActivitiesCount] = useState(0);
 
   useEffect(() => {
     loadProfile();
@@ -83,12 +84,19 @@ const ProfileScreen: React.FC = () => {
 
   const loadProfile = async () => {
     try {
-      const profileJson = await AsyncStorage.getItem(STORAGE_KEY_PROFILE);
+      const [profileJson, scheduleJson] = await Promise.all([
+        AsyncStorage.getItem(STORAGE_KEY_PROFILE),
+        AsyncStorage.getItem('@schedule'),
+      ]);
       if (profileJson) {
         const loadedProfile: UserProfile = JSON.parse(profileJson);
         setProfile(loadedProfile);
         setEditName(loadedProfile.name);
         setEditEmail(loadedProfile.email || '');
+      }
+      if (scheduleJson) {
+        const schedule = JSON.parse(scheduleJson);
+        setActivitiesCount(Array.isArray(schedule) ? schedule.length : 0);
       }
     } catch (error) {
       console.error('Error loading profile:', error);
@@ -123,7 +131,6 @@ const ProfileScreen: React.FC = () => {
     navigation.navigate(screen as any);
   };
 
-  const activitiesCount = 5; // TODO: Get from actual data
   const userStatus = getUserStatus(activitiesCount);
 
   return (

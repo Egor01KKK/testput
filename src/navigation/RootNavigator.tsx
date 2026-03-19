@@ -9,6 +9,8 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
 import MainMenuScreen from '../screens/MainMenuScreen';
 import MapScreen from '../screens/MapScreen';
+import MapSearchScreen from '../screens/MapSearchScreen';
+import MapFiltersScreen from '../screens/MapFiltersScreen';
 import ProgramScreen from '../screens/ProgramScreen';
 import OffersScreen from '../screens/OffersScreen';
 import TourDetailScreen from '../screens/TourDetailScreen';
@@ -21,6 +23,19 @@ import MyScheduleScreen from '../screens/MyScheduleScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import SuitcaseScreen from '../screens/SuitcaseScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
+
+// 2026 Screens
+import StandDetailScreen from '../screens/StandDetailScreen';
+import ParticipantsScreen from '../screens/ParticipantsScreen';
+import ParticipantDetailScreen from '../screens/ParticipantDetailScreen';
+import ActivitiesScreen from '../screens/ActivitiesScreen';
+import ActivityDetailScreen2026 from '../screens/ActivityDetailScreen2026';
+import PromotionsScreen from '../screens/PromotionsScreen';
+import PromotionDetailScreen from '../screens/PromotionDetailScreen';
+import TinderSwipeScreen from '../screens/TinderSwipeScreen';
+import MyPicksScreen from '../screens/MyPicksScreen';
+import PromotionClaimScreen from '../screens/PromotionClaimScreen';
+
 import { LoadingIndicator } from '../components/common';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -62,6 +77,8 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name="Registration" component={RegistrationScreen} />
       <Stack.Screen name="Main" component={MainMenuScreen} />
       <Stack.Screen name="Map" component={MapScreen} />
+      <Stack.Screen name="MapSearch" component={MapSearchScreen} />
+      <Stack.Screen name="MapFilters" component={MapFiltersScreen} />
       <Stack.Screen name="Program" component={ProgramScreen} />
       <Stack.Screen name="Offers" component={OffersScreen} />
       <Stack.Screen name="TourDetail" component={TourDetailScreen} />
@@ -74,6 +91,18 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name="Favorites" component={FavoritesScreen} />
       <Stack.Screen name="Suitcase" component={SuitcaseScreen} />
       <Stack.Screen name="Feedback" component={FeedbackScreen} />
+
+      {/* 2026 screens */}
+      <Stack.Screen name="StandDetail" component={StandDetailScreen} />
+      <Stack.Screen name="Participants" component={ParticipantsScreen} />
+      <Stack.Screen name="ParticipantDetail" component={ParticipantDetailScreen} />
+      <Stack.Screen name="Activities" component={ActivitiesScreen} />
+      <Stack.Screen name="ActivityDetail2026" component={ActivityDetailScreen2026} />
+      <Stack.Screen name="Promotions" component={PromotionsScreen} />
+      <Stack.Screen name="PromotionDetail" component={PromotionDetailScreen} />
+      <Stack.Screen name="TinderSwipe" component={TinderSwipeScreen} />
+      <Stack.Screen name="MyPicks" component={MyPicksScreen} />
+      <Stack.Screen name="PromotionClaim" component={PromotionClaimScreen} />
     </Stack.Navigator>
   );
 };
